@@ -1,8 +1,9 @@
 # Theme Switcher
 
 Todo
-- yazi script
-- kitty
+- bat
+- eza
+- starship
 - lift TN window border color from omarchy
 - try omarchy's hyprlock styling
 ```
@@ -49,12 +50,12 @@ Checking these off when:
 - There are at least 2 themes ready to be applied it
 
 - [ ] nvim
-- [ ] kitty
+- [x] kitty
 - [ ] hyprland
 - [ ] hyprlock
 - [ ] bat
 - [ ] eza
-- [ ] yazi
+- [x] yazi
 - [x] btop
 - [x] waybar
 - [ ] dunst
@@ -63,7 +64,6 @@ Checking these off when:
 - [x] mpv
 - [ ] starship
 - [ ] gtk
-- [ ] fastfetch
 - [ ] firefox
 - [ ] git
 
@@ -82,8 +82,6 @@ The main theme file exists solely to import two files:
 
 - `apply_rofi_theme.sh "theme_name"`
   - change color scheme file import in `~/.config/rofi/theme.rasi`
-
-Theme switcher script should execute `apply_rofi_theme.sh "theme_name"`.
 
 ## Waybar
 
@@ -109,8 +107,6 @@ When adding a new theme, a directory with the name of the theme should be create
   - copy `~/.config/waybar/themes/theme_name/colors.css` to `~/.config/waybar/colors.css` (overwriting existing)
   - restart waybar silently
 
-Theme switcher script should execute `apply_waybar_theme.sh "theme_name"`.
-
 ## btop
 
 - [x] Tokyo Night
@@ -120,8 +116,6 @@ Place theme files in `~/.config/btop/themes/` and define the current theme in `~
 
 - `apply_btop_theme.sh "theme_name"`
   - change `color_theme` definition in `~/.config/btop/btop.conf`
-
-Theme switcher script should execute `apply_btop_theme.sh "theme_name"`
 
 ## imv
 
@@ -137,8 +131,6 @@ New themes need to be added to the associative array in `apply_imv_theme.sh`.
   - replaces the background color in the current config 
     with the selected theme's background color.
 
-Theme switcher script should execute `apply_imv_theme.sh "theme_name"`
-
 ## mpv
 
 - [x] Tokyo Night
@@ -153,36 +145,81 @@ New themes need to be added to the associative array in `apply_mpv_theme.sh`.
   - replaces the background color in the current config 
     with the selected theme's background color.
 
-Theme switcher script should execute `apply_imv_theme.sh "theme_name"`
-
 ## Yazi
 
-Dracula (maybe more?) uses a 'flavor' file to configure the theme 
-whereas Tokyo Night uses the theme.toml file directly.
+- [x] Tokyo Night
+- [x] Dracula
 
-Probably a good idea to create a themes directory in yazi's config directory.
+There are multiple methods for theming Yazi.
 
-Have a directory in `themes` for each theme.
+So we have a `themes` directory in the Yazi config directory
+which has a subdirectory for each theme.
 
-Each theme's directory will contain all the files needed to apply and use it.
+Each theme's contains all the files needed to apply and use it.
 
-Our 'apply' script will copy the contents of the theme directory to the yazi config directory.
+When a theme is applied, the current theme's files are removed from the Yazi config directory's root level and the contents of the new theme's folder are copied there to become the new current theme.
 
-What we want to end up with is:
-`yazi/theme.toml` defines current theme or points to flavor
-`yazi/theme.tmTheme` (sublime config file) for syntax highlighting
-(if applicable) `yazi/flavors/theme_name.yazi` defines theme
-
-seems like flavor defined themes just use a couple lines in `theme.toml` to point to the flavor.
+Each theme consists of:
+- `theme.toml` defines current theme or points to flavor
+- `theme.tmTheme` (sublime config file) for syntax highlighting
+- `flavors/theme_name.yazi` (if applicable) defines theme
+  - `flavor.toml` main theme file
+  - `tmtheme.xml` syntax highlighting
 
 [Flavors documentation](https://yazi-rs.github.io/docs/flavors/overview/)
 
-apply script:
-  - validate theme_name
+`apply_yazi_theme.sh "theme_name"`
   - `rm -rf flavors` to remove it if it exists
   - `rm -rf theme.tmTheme` ^
   - `rm -rf theme.toml` ^
   - copy `yazi/themes/theme_name/*` to `yazi/`
 
 ## Kitty
+
+- [x] Tokyo Night
+- [x] Dracula
+
+Each theme has a `.conf` file in `~/.config/kitty/themes/`.
+
+The current theme is kept in `~/.config/kitty/theme.conf`.
+
+`apply_kitty_theme.sh "theme_name`
+  - overwrite `~/.config/kitty/theme.conf` with the new theme's file
+
+## bat
+
+- [ ] Tokyo Night
+- [ ] Dracula
+
+Theme is defined in the `bat/config` file.
+
+It references the name of a built-in theme or the name of a theme in `bat/themes` (without the file extension).
+```
+--theme="current-theme"
+```
+
+Custom themes can be added to `bat/themes` as a `.tmTheme` (sublime config) file.
+
+Built-in themes can be listed with `bat --list-themes`.
+
+After adding a custom theme, you need to run `bat cache --build` to make it available to bat.
+
+> [!NOTE] There are built-in themes for dracula, nord and gruvbox-dark.
+
+`apply_bat_theme.sh "theme_name"`
+  - run `bat cache --build` to make sure newly added themes are available
+  - Copy the new theme's file to overwrite `current-theme.tmTheme`
+
+## eza
+
+
+
+## Starship
+
+
+
+
+
+
+
 
