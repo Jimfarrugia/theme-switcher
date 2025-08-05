@@ -29,4 +29,11 @@ fi
 # Overwrite current theme file with a copy of the new theme's file.
 cp "$THEME_FILE" "$KITTY_CONFIG_DIR/theme.conf"
 
+# Reload kitty config
+# (also handle case where kitty is not running so `kill` doesn't throw an error)
+kitty_pids=$(pgrep kitty)
+if [[ -n "$kitty_pids" ]]; then
+  kill -SIGUSR1 $kitty_pids
+fi
+
 echo -e "\e[32m \e[0mKitty theme '$THEME_NAME' applied."
