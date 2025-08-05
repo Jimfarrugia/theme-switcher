@@ -1,8 +1,6 @@
 # Theme Switcher
 
 Todo
-- bat
-- eza
 - starship
 - lift TN window border color from omarchy
 - try omarchy's hyprlock styling
@@ -53,8 +51,8 @@ Checking these off when:
 - [x] kitty
 - [ ] hyprland
 - [ ] hyprlock
-- [ ] bat
-- [ ] eza
+- [x] bat
+- [x] eza
 - [x] yazi
 - [x] btop
 - [x] waybar
@@ -188,8 +186,8 @@ The current theme is kept in `~/.config/kitty/theme.conf`.
 
 ## bat
 
-- [ ] Tokyo Night
-- [ ] Dracula
+- [x] Tokyo Night
+- [x] Dracula
 
 Theme is defined in the `bat/config` file.
 
@@ -212,7 +210,16 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
 
 ## eza
 
+- [x] Tokyo Night
+- [x] Dracula
 
+[Eza community themes](https://github.com/eza-community/eza-themes) (has most of the themes I want) I downloaded them all.  They're in the config dir.
+
+> [!NOTE] 'frosty' looks like it would fit well as a stand-in for Nord.
+
+`apply_eza_theme.sh "theme_name"`
+  - overwrite `eza/theme.yml` in the config directory
+    with new theme file from the `eze/themes/` directory.
 
 ## Starship
 
