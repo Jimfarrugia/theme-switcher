@@ -32,4 +32,4 @@ cp "$THEME_FILE" "$BAT_CONFIG_DIR/themes/current-theme.tmTheme"
 # Rebuild bat's cache
 bat cache --build
 
-echo -e "\e[32m \e[0mBat theme '$THEME_NAME' applied."
+echo -e "\e[32m✅ \e[0mBat theme '$THEME_NAME' applied."

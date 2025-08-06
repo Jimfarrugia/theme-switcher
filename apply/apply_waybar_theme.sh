@@ -35,10 +35,10 @@ if [[ ! -f "$THEME_DIR/colors.sh" || ! -f "$THEME_DIR/colors.css" ]]; then
   exit 1
 fi
 
-# Import theme color variables
+# Source and export all theme variables
 source "$THEME_DIR/colors.sh"
 
-# Substitute variables into the template
+# Generate config.jsonc
 envsubst <"$CONFIG_TEMPLATE_FILE" >"$FINAL_CONFIG_FILE"
 
 # Overwrite current colors.css file with the theme's colors.css file
@@ -50,4 +50,4 @@ sleep 0.3
 (waybar >/dev/null 2>&1 &) &
 disown
 
-echo -e "\e[32m \e[0mWaybar theme '$THEME_NAME' applied."
+echo -e "\e[32m✅\e[0mWaybar theme '$THEME_NAME' applied."

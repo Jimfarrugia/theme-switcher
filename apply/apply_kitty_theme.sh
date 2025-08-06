@@ -36,4 +36,4 @@ if [[ -n "$kitty_pids" ]]; then
   kill -SIGUSR1 $kitty_pids
 fi
 
-echo -e "\e[32m \e[0mKitty theme '$THEME_NAME' applied."
+echo -e "\e[32m✅ \e[0mKitty theme '$THEME_NAME' applied."

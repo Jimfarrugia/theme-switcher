@@ -35,4 +35,4 @@ fi
 # Replace the 'color_theme' line in the config file
 sed -i "s|^color_theme.*|color_theme = \"$THEME_FILE\"|" "$BTOP_CONFIG_FILE"
 
-echo -e "\e[32m \e[0mbtop theme '$THEME_NAME' applied."
+echo -e "\e[32m✅ \e[0mbtop theme '$THEME_NAME' applied."

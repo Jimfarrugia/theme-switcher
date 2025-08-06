@@ -34,4 +34,4 @@ rm -rf "$YAZI_CONFIG_DIR/flavors" \
 # Copy the new theme's files to the config directory
 cp -r "$THEME_DIR/." "$YAZI_CONFIG_DIR/"
 
-echo -e "\e[32m \e[0mYazi theme '$THEME_NAME' applied."
+echo -e "\e[32m✅ \e[0mYazi theme '$THEME_NAME' applied."

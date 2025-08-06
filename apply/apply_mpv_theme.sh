@@ -41,4 +41,4 @@ new_background="${themes[$THEME_NAME]}"
 # Replace the 'background' line in the config file
 sed -i "s/^background-color.*/background-color=\"$new_background\"/" "$MPV_CONFIG_FILE"
 
-echo -e "\e[32m \e[0mmpv theme '$THEME_NAME' applied."
+echo -e "\e[32m✅ \e[0mmpv theme '$THEME_NAME' applied."

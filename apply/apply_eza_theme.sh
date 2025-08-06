@@ -29,4 +29,4 @@ fi
 # Overwrite current theme file with a copy of the new theme's file.
 cp "$THEME_FILE" "$EZA_CONFIG_DIR/theme.yml"
 
-echo -e "\e[32m \e[0meza theme '$THEME_NAME' applied."
+echo -e "\e[32m✅ \e[0meza theme '$THEME_NAME' applied."
