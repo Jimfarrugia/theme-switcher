@@ -2,8 +2,8 @@
 
 Todo
 - dunst
-- hyprland
-- hyprlock
+- nvim
+- gtk
 - lift TN window border color from omarchy
 - try omarchy's hyprlock styling
 ```
@@ -61,8 +61,8 @@ Checking these off when:
 
 - [ ] nvim
 - [x] kitty
-- [ ] hyprland
-- [ ] hyprlock
+- [x] hyprland
+- [x] hyprlock
 - [x] bat
 - [x] eza
 - [x] yazi
@@ -256,3 +256,40 @@ There is a validation script in the theme-switcher project (`validate_starship_t
   - source placeholder values from `~/.config/starship/themes/theme_name.sh`
   - expand placeholder variables in template with values (using envsubst)
   - save result as `~/.config/starship.toml` (overwriting existing)
+
+## Hyprland
+
+- [x] Tokyo Night
+- [x] Dracula
+
+Hyprland and it's sister apps support directly sourcing `.conf` files in their configs.
+
+New themes can be added to the appropriate directory within the `hypr/themes/` directory. (eg. `/hypr/themes/hyprland`)
+
+Hyprland's theme file is sourced into the parent config file just like all the other inclusions.
+
+`apply_hyprland_theme.sh "theme_name"`
+  - overwrite `hypr/themes/hyprland/current_theme.conf` in the config directory
+    with new theme file from the same directory.
+
+## Hyprlock
+
+- [x] Tokyo Night
+- [x] Dracula
+
+Hyprland and it's sister apps support directly sourcing `.conf` files in their configs.
+
+New themes can be added to the appropriate directory within the `hypr/themes/` directory. (eg. `/hypr/themes/hyprlock`)
+
+Hyprland's theme file is sourced into the parent config file just like all the other inclusions.
+
+`apply_hyprlock_theme.sh "theme_name"`
+  - overwrite `hypr/themes/hyprlock/current_theme.conf` in the config directory
+    with new theme file from the same directory.
+
+## dunst
+
+- [ ] Tokyo Night
+- [ ] Dracula
+
+
