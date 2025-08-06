@@ -1,7 +1,9 @@
 # Theme Switcher
 
 Todo
-- starship
+- dunst
+- hyprland
+- hyprlock
 - lift TN window border color from omarchy
 - try omarchy's hyprlock styling
 ```
@@ -24,8 +26,8 @@ even to KDE.
 
 - Make every config themeable with this system.
 - Write parent script to:
+  - run validation scripts for configs with templates
   - apply theme to every config
-    - run validation scripts for configs with templates
   - change wallpaper to one from theme
   - save name of current theme in $XDG_DATA_HOME
   - (Later) Re-color profile-pic/logo with theme colors using imagemagick.
@@ -70,7 +72,7 @@ Checking these off when:
 - [x] rofi
 - [x] imv
 - [x] mpv
-- [ ] starship
+- [x] starship
 - [ ] gtk
 - [ ] firefox
 - [ ] git
@@ -233,73 +235,24 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
 
 ## Starship
 
+- [x] Tokyo Night
+- [x] Dracula
+
 Starship's theming is baked into the general configuration. There are no separate theme files.
 
 There is no way to directly import other files or use variables within `starship.toml`.
 
-Like waybar, I'll use a template file with placeholders for environment variables to be expanded into.
+So we have a template file (`starship.template.toml`) with variable names in place of the color values.
 
-Dracula:
-dark > purple > cyan > pink or alt-dark
-cyan os logo
-green time
+The script, `apply_starship_theme.sh` is used to replace the variable names with the actual values and save the result to the final config file (`starship.toml`).
 
-chatgpt example script:
-```toml
-[username]
-style = "fg=${STARSHIP_COLOR_FG} bg=${STARSHIP_COLOR_BG}"
+When adding a new theme, a `theme_name.sh` file should be created in the themes directory. This file should export the variables to be used in the template.
 
-[directory]
-style = "fg=${STARSHIP_COLOR_BLUE}"
-```
+When updating the template or theme, any newly added variables need to be named in uppercase snake_case or they will not be substituted in the final config file.
 
-theme file:
-```sh
-# Palette
-TOKYO_BG="#1A1B26"
-TOKYO_FG="#C0CAF5"
-TOKYO_BLUE="#7AA2F7"
-TOKYO_YELLOW="#E0AF68"
-TOKYO_PINK="#F7768E"
+There is a validation script in the theme-switcher project (`validate_starship_theme.sh`) which checks for anything that might cause the final config file not to generate correctly from the template.
 
-# Role mapping
-export STARSHIP_COLOR_BG="$TOKYO_BG"
-export STARSHIP_COLOR_FG="$TOKYO_FG"
-export STARSHIP_COLOR_PRIMARY="$TOKYO_BLUE"
-export STARSHIP_COLOR_WARNING="$TOKYO_YELLOW"
-export STARSHIP_COLOR_ALERT="$TOKYO_PINK"
-```
-
-apply script:
-```sh
-#!/usr/bin/env bash
-
-# Usage: switch_starship_theme.sh tokyo_night
-
-set -euo pipefail
-
-THEME_NAME="$1"
-THEME_FILE="$HOME/.config/starship/themes/${THEME_NAME}.env"
-TEMPLATE="$HOME/.config/starship/starship.template.toml"
-OUTPUT="$HOME/.config/starship/starship.toml"
-
-if [[ ! -f "$THEME_FILE" ]]; then
-    echo "Theme file not found: $THEME_FILE"
-    exit 1
-fi
-
-# Export all vars from theme file
-set -a
-source "$THEME_FILE"
-set +a
-
-# Generate final config
-envsubst < "$TEMPLATE" > "$OUTPUT"
-
-echo "Switched to theme: $THEME_NAME"
-```
-
-
-
-
-
+- `apply_starship_theme.sh "theme_name"`
+  - source placeholder values from `~/.config/starship/themes/theme_name.sh`
+  - expand placeholder variables in template with values (using envsubst)
+  - save result as `~/.config/starship.toml` (overwriting existing)
