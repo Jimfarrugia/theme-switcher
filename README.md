@@ -20,13 +20,23 @@ even to KDE.
 
 ---
 
-## Script
+## Plan
 
-- (Later) Re-color profile-pic/logo with theme colors using imagemagick.
+- Make every config themeable with this system.
+- Write parent script to:
+  - apply theme to every config
+    - run validation scripts for configs with templates
+  - change wallpaper to one from theme
+  - save name of current theme in $XDG_DATA_HOME
+  - (Later) Re-color profile-pic/logo with theme colors using imagemagick.
+- Write a command/shortcut to use rofi as a selection ui
+  - display shortcuts to run switcher for available themes
+  - shortcuts will only be displayed in this window
+  - current theme is highlighted (sourced from $XDG_DATA_HOME)
+  - after selecting one, theme changes, then
+    - show rofi menu for accepting or cycling wallpaper
 
-- change wallpaper to one from `~/Pictures/Wallpaper/themes/theme_name/`
-- execute/source `apply_rofi_theme.sh "theme_name"`
-- ^ repeat for all 'apply' scripts
+
 
 ## Themes
 
@@ -223,8 +233,71 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
 
 ## Starship
 
+Starship's theming is baked into the general configuration. There are no separate theme files.
 
+There is no way to directly import other files or use variables within `starship.toml`.
 
+Like waybar, I'll use a template file with placeholders for environment variables to be expanded into.
+
+Dracula:
+dark > purple > cyan > pink or alt-dark
+cyan os logo
+green time
+
+chatgpt example script:
+```toml
+[username]
+style = "fg=${STARSHIP_COLOR_FG} bg=${STARSHIP_COLOR_BG}"
+
+[directory]
+style = "fg=${STARSHIP_COLOR_BLUE}"
+```
+
+theme file:
+```sh
+# Palette
+TOKYO_BG="#1A1B26"
+TOKYO_FG="#C0CAF5"
+TOKYO_BLUE="#7AA2F7"
+TOKYO_YELLOW="#E0AF68"
+TOKYO_PINK="#F7768E"
+
+# Role mapping
+export STARSHIP_COLOR_BG="$TOKYO_BG"
+export STARSHIP_COLOR_FG="$TOKYO_FG"
+export STARSHIP_COLOR_PRIMARY="$TOKYO_BLUE"
+export STARSHIP_COLOR_WARNING="$TOKYO_YELLOW"
+export STARSHIP_COLOR_ALERT="$TOKYO_PINK"
+```
+
+apply script:
+```sh
+#!/usr/bin/env bash
+
+# Usage: switch_starship_theme.sh tokyo_night
+
+set -euo pipefail
+
+THEME_NAME="$1"
+THEME_FILE="$HOME/.config/starship/themes/${THEME_NAME}.env"
+TEMPLATE="$HOME/.config/starship/starship.template.toml"
+OUTPUT="$HOME/.config/starship/starship.toml"
+
+if [[ ! -f "$THEME_FILE" ]]; then
+    echo "Theme file not found: $THEME_FILE"
+    exit 1
+fi
+
+# Export all vars from theme file
+set -a
+source "$THEME_FILE"
+set +a
+
+# Generate final config
+envsubst < "$TEMPLATE" > "$OUTPUT"
+
+echo "Switched to theme: $THEME_NAME"
+```
 
 
 
