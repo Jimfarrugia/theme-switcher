@@ -1,7 +1,6 @@
 # Theme Switcher
 
 Todo
-- dunst
 - nvim
 - gtk
 - lift TN window border color from omarchy
@@ -38,8 +37,6 @@ even to KDE.
   - after selecting one, theme changes, then
     - show rofi menu for accepting or cycling wallpaper
 
-
-
 ## Themes
 
 Starting with Tokyo Night and Dracula just to prove the concept but these are the main themes I'd like to have available.
@@ -68,7 +65,7 @@ Checking these off when:
 - [x] yazi
 - [x] btop
 - [x] waybar
-- [ ] dunst
+- [x] dunst
 - [x] rofi
 - [x] imv
 - [x] mpv
@@ -289,7 +286,31 @@ Hyprland's theme file is sourced into the parent config file just like all the o
 
 ## dunst
 
-- [ ] Tokyo Night
-- [ ] Dracula
+- [x] Tokyo Night
+- [x] Dracula
 
+Zero files are natively imported by dunst.  Everything is supposed to be placed within `dunstrc`.  But many OS' will automatically merge 1 or more files from `~/.config/dunst/dunstrc.d/`. So at the time of writing, I had a `themes.conf` file in that directory which had both of my previous themes with only one that wasn't commented out.
 
+The new strat is to put the new `current_theme.conf` file in `~/.config/dunst/dunstrc.d/` as the only file in that directory.  Themes will be kept in `~/.config/dunst/themes` and when switching themes, the new theme will be moved and renamed to the `dunstrc.d` directory.
+
+Icon paths (or any path) in dunstrc or the theme must be absolute paths. Maybe in future if we want this script to be more portable, we can use a placeholder for the `$HOME` path instead of hardcoding it.
+
+Icon themes are stored in `~/.config/dunst/icons/theme_name` and are referenced from theme files.
+
+When adding a new theme, icons can be recolored with `imagemagick`:
+```sh
+# 'fill' is the new color
+# 'opaque' is the old color
+magick input.png -fill "#FFAAAA" -colorize 100% output.png
+```
+
+> [!NOTE] Most of the icons use the theme's primary accent color but some use the 'warning' and 'error' colors.  Check them first.
+
+> [!IMPORTANT] Do not rename the icons, they are referenced by many scripts for custom notifications.
+
+`apply_dunst_theme.sh "theme_name"`
+  - overwrite `dunst/dunstrc.d/current_theme.conf` in the config directory
+    with new theme file from the same directory.
+  - restart dunst service
+
+## 
