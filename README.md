@@ -310,7 +310,16 @@ magick input.png -fill "#FFAAAA" -colorize 100% output.png
 
 `apply_dunst_theme.sh "theme_name"`
   - overwrite `dunst/dunstrc.d/current_theme.conf` in the config directory
-    with new theme file from the same directory.
+    with new theme file from `dunst/themes`
   - restart dunst service
 
-## 
+## nvim
+
+The current theme is defined in the `nvim/lua/plugins/colorscheme.lua` file.
+
+A `themes` directory has been added to the nvim config directory which will store the theme collection.
+
+`apply_nvim_theme.sh "theme_name"`
+  - overwrite `nvim/lua/plugins/colorscheme.lua` in the config directory
+    with new theme file from `nvim/themes`
+
