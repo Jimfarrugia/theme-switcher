@@ -1,7 +1,6 @@
 # Theme Switcher
 
 Todo
-- nvim
 - gtk
 - lift TN window border color from omarchy
 - try omarchy's hyprlock styling
@@ -56,7 +55,7 @@ Checking these off when:
 - It is documented in this file
 - There are at least 2 themes ready to be applied it
 
-- [ ] nvim
+- [x] nvim
 - [x] kitty
 - [x] hyprland
 - [x] hyprlock
@@ -315,6 +314,9 @@ magick input.png -fill "#FFAAAA" -colorize 100% output.png
 
 ## nvim
 
+- [x] Tokyo Night
+- [x] Dracula
+
 The current theme is defined in the `nvim/lua/plugins/colorscheme.lua` file.
 
 A `themes` directory has been added to the nvim config directory which will store the theme collection.
@@ -322,4 +324,10 @@ A `themes` directory has been added to the nvim config directory which will stor
 `apply_nvim_theme.sh "theme_name"`
   - overwrite `nvim/lua/plugins/colorscheme.lua` in the config directory
     with new theme file from `nvim/themes`
+
+## GTK
+
+- [ ] Tokyo Night
+- [ ] Dracula
+
 
