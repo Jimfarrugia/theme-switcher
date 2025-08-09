@@ -1,14 +1,26 @@
 # Theme Switcher
 
-Todo
-- gtk
-- lift TN window border color from omarchy
-- try omarchy's hyprlock styling
-```
-general {
-    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
-}
-```
+1. [Themes](#Themes)
+2. [Themeable Programs](#Themeable-Programs)
+3. [Rofi](#rofi)
+4. [Waybar](#Waybar)
+5. [btop](#btop)
+6. [imv](#imv)
+7. [mpv](#mpv)
+8. [Yazi](#yazi)
+9. [Kitty](#kitty)
+10. [bat](#bat)
+11. [eza](#eza)
+12. [Starship](#starship)
+13. [Hyprland](#hyprland)
+14. [Hyprlock](#hyprlock)
+15. [dunst](#dunst)
+16. [Neovim](#nvim)
+17. [GTK](#gtk)
+18. [Firefox](#firefox)
+19. [Wallpaper](#Wallpaper)
+
+---
 
 `bg transparent`
 - dracula `30, 31, 41, 0.7`
@@ -69,9 +81,8 @@ Checking these off when:
 - [x] imv
 - [x] mpv
 - [x] starship
-- [ ] gtk
-- [ ] firefox
-- [ ] git
+- [x] gtk
+- [x] firefox
 
 ---
 
@@ -327,8 +338,8 @@ A `themes` directory has been added to the nvim config directory which will stor
 
 ## GTK
 
-- [ ] Tokyo Night
-- [ ] Dracula
+- [x] Tokyo Night
+- [x] Dracula
 
 GTK themes are in `~/.local/share/themes`
 
@@ -346,6 +357,35 @@ The theme name and the icon name should be identical.
 
 ---
 
-##
+## Firefox
 
+- [x] Tokyo Night
+- [x] Dracula
 
+Some of the firefox styling comes from the GTK theme and some is from `~/.mozilla/firefox/PROFILE_DIR/chrome/userChrome.css`
+
+In `userChrome.css`:
+  - `accent-color`: active/hovered tab background
+  - `tab-text-color`: active tab foreground
+  - `light-color`: bookmarks bar foreground
+  - `dark-color`: top bar background
+
+Themes are stored in `~/dotfiles/_unstowed/.mozilla/firefox/profile.default-release/chrome/themes`.
+
+Theme files are not stowed so they only exist in the dotfiles directory.
+
+apply_firefox_theme.sh "theme_name"
+  - replace the color values in `userChrome.css` with the new theme colors
+
+---
+
+## Wallpaper
+
+- [x] Tokyo Night
+- [x] Dracula
+
+Theme wallpapers are in `~/Picutres/Wallpaper/themes/`.
+
+There is a directory for each `theme_name` containing wallpapers that fit well with the theme.
+
+---
