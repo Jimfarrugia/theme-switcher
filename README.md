@@ -2,23 +2,24 @@
 
 1. [Themes](#Themes)
 2. [Themeable Programs](#Themeable-Programs)
-3. [Rofi](#rofi)
-4. [Waybar](#Waybar)
-5. [btop](#btop)
-6. [imv](#imv)
-7. [mpv](#mpv)
-8. [Yazi](#yazi)
-9. [Kitty](#kitty)
-10. [bat](#bat)
-11. [eza](#eza)
-12. [Starship](#starship)
-13. [Hyprland](#hyprland)
-14. [Hyprlock](#hyprlock)
-15. [dunst](#dunst)
-16. [Neovim](#nvim)
-17. [GTK](#gtk)
-18. [Firefox](#firefox)
-19. [Wallpaper](#Wallpaper)
+3. [Validation Script](#Validation-Script)
+4. [Rofi](#rofi)
+5. [Waybar](#Waybar)
+6. [btop](#btop)
+7. [imv](#imv)
+8. [mpv](#mpv)
+9. [Yazi](#yazi)
+10. [Kitty](#kitty)
+11. [bat](#bat)
+12. [eza](#eza)
+13. [Starship](#starship)
+14. [Hyprland](#hyprland)
+15. [Hyprlock](#hyprlock)
+16. [dunst](#dunst)
+17. [Neovim](#nvim)
+18. [GTK](#gtk)
+19. [Firefox](#firefox)
+20. [Wallpaper](#Wallpaper)
 
 ---
 
@@ -116,6 +117,12 @@ So we have a template file (`config.template.jsonc`) with variable names in plac
 The script, `apply_waybar_theme.sh` is used to replace the variable names with the actual values and save the result to the final config file (`config.jsonc`).
 
 When adding a new theme, a directory with the name of the theme should be created in the themes directory. The new directory should contain a `colors.sh` file with the color values for inline styling.  The new directory should also contain a `colors.css` file with values for the css variables used in `style.css`.
+
+You can validate a new theme (`colors.sh` file) without running the theme switcher by running:
+```sh
+validate_template_theme.sh /path/to/template/file /path/to/theme/file
+```
+
 
 - `apply_waybar_theme.sh "theme_name"`
   - source `~/.config/waybar/themes/theme_name/colors.sh`
@@ -221,7 +228,8 @@ Built-in themes can be listed with `bat --list-themes`.
 
 After adding a custom theme, you need to run `bat cache --build` to make it available to bat.
 
-> [!NOTE] There are built-in themes for dracula, nord and gruvbox-dark.
+> [!NOTE]
+> There are built-in themes for dracula, nord and gruvbox-dark.
 
 `apply_bat_theme.sh "theme_name"`
   - run `bat cache --build` to make sure newly added themes are available
@@ -234,7 +242,8 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
 
 [Eza community themes](https://github.com/eza-community/eza-themes) (has most of the themes I want) I downloaded them all.  They're in the config dir.
 
-> [!NOTE] 'frosty' looks like it would fit well as a stand-in for Nord.
+> [!NOTE]
+> 'frosty' looks like it would fit well as a stand-in for Nord.
 
 `apply_eza_theme.sh "theme_name"`
   - overwrite `eza/theme.yml` in the config directory
@@ -257,7 +266,12 @@ When adding a new theme, a `theme_name.sh` file should be created in the themes 
 
 When updating the template or theme, any newly added variables need to be named in uppercase snake_case or they will not be substituted in the final config file.
 
-There is a validation script in the theme-switcher project (`validate_starship_theme.sh`) which checks for anything that might cause the final config file not to generate correctly from the template.
+There is a validation script in the theme-switcher project (`validate_template_theme.sh`) which checks for anything that might cause the final config file not to generate correctly from the template.
+
+You can validate a new theme without running the theme switcher by running:
+```sh
+validate_template_theme.sh /path/to/template/file /path/to/theme/file
+```
 
 - `apply_starship_theme.sh "theme_name"`
   - source placeholder values from `~/.config/starship/themes/theme_name.sh`
@@ -314,9 +328,11 @@ When adding a new theme, icons can be recolored with `imagemagick`:
 magick input.png -fill "#FFAAAA" -colorize 100% output.png
 ```
 
-> [!NOTE] Most of the icons use the theme's primary accent color but some use the 'warning' and 'error' colors.  Check them first.
+> [!NOTE]
+> Most of the icons use the theme's primary accent color but some use the 'warning' and 'error' colors.  Check them first.
 
-> [!IMPORTANT] Do not rename the icons, they are referenced by many scripts for custom notifications.
+> [!IMPORTANT]
+> Do not rename the icons, they are referenced by many scripts for custom notifications.
 
 `apply_dunst_theme.sh "theme_name"`
   - overwrite `dunst/dunstrc.d/current_theme.conf` in the config directory

@@ -6,44 +6,38 @@
 #       - Are exported in the theme but never used
 #       - Are defined in theme but don't follow naming convention and are used in template
 #
-# Usage: validate_starship_theme.sh "theme_name"
+# Args: (poisitional)
+#       1. "template_file" the absolute path to the template file
+#       2. "theme_file" the absolute path to the theme file
+#
+# Usage: validate_template_theme.sh "template_file" "theme_file"
 #
 
 set -euo pipefail
 
-THEME_NAME="$1"
-CONFIG_DIR="$HOME/.config/starship"
-TEMPLATE_FILE="$CONFIG_DIR/starship.template.toml"
-THEME_FILE="$CONFIG_DIR/themes/$THEME_NAME.sh"
-
-# Make sure theme name was provided
-if [[ -z $THEME_NAME ]]; then
-  echo -e "\e[31m \e[0mStarship theme name argument wasn't provided."
-  exit 1
-fi
-
-echo "Validating Starship theme: $THEME_NAME"
+TEMPLATE_FILE="$1"
+THEME_FILE="$2"
 
 # Make sure theme file exists
 if [[ ! -f "$THEME_FILE" ]]; then
-  echo -e "\e[33m❌\e[0m Starship theme file not found: $THEME_FILE"
+  echo -e "\e[33m❌\e[0m Theme file not found: $THEME_FILE"
   exit 1
 fi
 
-# Make sure template exists
+# Make sure template file exists
 if [[ ! -f "$TEMPLATE_FILE" ]]; then
-  echo -e "\e[33m❌\e[0m Starship config template not found: $TEMPLATE_FILE"
+  echo -e "\e[33m❌\e[0m Config template not found: $TEMPLATE_FILE"
   exit 1
 fi
 
-# Extract all placeholders from the template (ignores commented lines)
+# Extract all placeholders from the template (ignores lines that begin with '#')
 TEMPLATE_VARS=$(grep -v '^[[:space:]]*#' "$TEMPLATE_FILE" | grep -o '\${[A-Z0-9_]\+}' | tr -d '${}' | sort -u)
 
 # Extract all exported placeholders from the theme file
 THEME_EXPORTS=$(grep -oE '^export +[A-Z0-9_]+=' "$THEME_FILE" | sed 's/^export *//' | cut -d= -f1 | sort -u)
 
 # Check for template placeholders missing in theme
-echo -e "\e[33m🔍\e[0m Checking for undefined variables used in template..."
+echo -e "\e[33m󰍉\e[0m Checking for undefined variables used in template..."
 MISSING_IN_THEME=0
 for var in $TEMPLATE_VARS; do
   if ! echo "$THEME_EXPORTS" | grep -q "^$var$"; then
@@ -53,7 +47,7 @@ for var in $TEMPLATE_VARS; do
 done
 
 # Check for unused theme exports
-echo -e "\e[33m🔍\e[0m Checking for unused variables exported in theme..."
+echo -e "\e[33m󰍉\e[0m Checking for unused variables exported in theme..."
 UNUSED_IN_TEMPLATE=0
 for var in $THEME_EXPORTS; do
   if ! echo "$TEMPLATE_VARS" | grep -q "^$var$"; then
@@ -63,7 +57,7 @@ for var in $THEME_EXPORTS; do
 done
 
 # Check for lowercase or invalid vars used in template
-echo -e "\e[33m🔍\e[0m Checking for placeholders that won't be substituted..."
+echo -e "\e[33m󰍉\e[0m Checking for placeholders that won't be substituted..."
 BAD_THEME_VARS=$(grep -oE '^export +[^ =]+' "$THEME_FILE" | sed 's/^export *//' | cut -d= -f1 | grep -vE '^[A-Z_]+$' || true)
 INVALID_VARS_USED=0
 for var in $BAD_THEME_VARS; do
