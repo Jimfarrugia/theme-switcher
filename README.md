@@ -330,4 +330,22 @@ A `themes` directory has been added to the nvim config directory which will stor
 - [ ] Tokyo Night
 - [ ] Dracula
 
+GTK themes are in `~/.local/share/themes`
+
+GTK icons are in `~/.local/share/icons`
+
+`~/.config/gtk-3.0/settings.ini` has theme/icon settings.
+
+The name used by GTK for the theme/icons comes from it's `index.theme` file.  This needs to be edited to match our naming convention when adding a new theme or icon set. The directories for the theme and icon set should match the name (`theme_name`).
+
+The theme name and the icon name should be identical.
+
+`apply_gtk_theme.sh "theme_name"`
+  - modify the gtk3 settings file to use the new theme
+  - apply changes live via gsettings
+
+---
+
+##
+
 
