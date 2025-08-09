@@ -19,19 +19,19 @@ THEME_DIR="$WAYBAR_THEMES_DIR/$THEME_NAME"
 
 # Make sure theme name was provided
 if [[ -z $THEME_NAME ]]; then
-  echo -e "\e[31m \e[0mWaybar theme name argument wasn't provided."
+  echo -e "\e[31m \e[0m Waybar theme name argument wasn't provided."
   exit 1
 fi
 
 # Make sure the theme exists
 if [[ ! -d "$THEME_DIR" ]]; then
-  echo -e "\e[31m \e[0mWaybar theme '$THEME_NAME' not found."
+  echo -e "\e[31m \e[0m Waybar theme '$THEME_NAME' not found."
   exit 1
 fi
 
 # Make sure required theme files exist
 if [[ ! -f "$THEME_DIR/colors.sh" || ! -f "$THEME_DIR/colors.css" ]]; then
-  echo -e "\e[31m \e[0mWaybar theme '$THEME_NAME' is missing required files."
+  echo -e "\e[31m \e[0m Waybar theme '$THEME_NAME' is missing required files."
   exit 1
 fi
 
@@ -50,4 +50,4 @@ sleep 0.3
 (waybar >/dev/null 2>&1 &) &
 disown
 
-echo -e "\e[32m✅\e[0mWaybar theme '$THEME_NAME' applied."
+echo -e "\e[32m✅\e[0m Waybar theme '$THEME_NAME' applied."
