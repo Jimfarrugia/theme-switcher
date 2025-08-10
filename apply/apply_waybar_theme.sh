@@ -47,7 +47,6 @@ cp "$THEME_DIR/colors.css" "$WAYBAR_CONFIG_DIR/colors.css"
 # Restart Waybar silently
 killall waybar >/dev/null 2>&1 || true
 sleep 0.3
-(waybar >/dev/null 2>&1 &) &
-disown
+nohup waybar >/dev/null 2>&1 </dev/null &
 
 echo -e "\e[32m✅\e[0m Waybar theme '$THEME_NAME' applied."
