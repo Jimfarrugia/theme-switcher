@@ -54,6 +54,6 @@ echo "THEME_NAME=$THEME_NAME" >"$THEME_DATA_FILE"
 echo "WALLPAPER=$DEFAULT_WALLPAPER" >>"$THEME_DATA_FILE"
 echo -e "Theme data saved to: $THEME_DATA_FILE"
 
-sleep 2
+sleep 1
 
 echo -e "\n\e[33m󱁖 \e[32m Great success!\e[0m Enjoy $PRETTY_THEME_NAME vibes!"
