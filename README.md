@@ -42,6 +42,7 @@ even to KDE.
   - change wallpaper to one from theme
   - save name of current theme in $XDG_DATA_HOME
   - (Later) Re-color profile-pic/logo with theme colors using imagemagick.
+
 - Write a command/shortcut to use rofi as a selection ui
   - display shortcuts to run switcher for available themes
   - shortcuts will only be displayed in this window
@@ -51,15 +52,15 @@ even to KDE.
 
 ## Themes
 
-Starting with Tokyo Night and Dracula just to prove the concept but these are the main themes I'd like to have available.
-
-- Tokyo Night (tokyo_night)
-- Dracula (dracula)
-- Catppuccin Mocha (catppuccin_mocha)
-- Nordic (nordic)
-- Gruvbox Dark (gruvbox_dark)
-- Everforest (everforest)
+- [x] Tokyo Night (tokyo_night)
+- [x] Dracula (dracula)
+- [ ] Catppuccin Mocha (catppuccin)
+- [ ] Nordic (nordic)
+- [ ] Gruvbox Dark (gruvbox)
+- [ ] Everforest (everforest)
 - Hot Purple Traffic Light** (new custom palette theme based on btop theme)
+
+- A `.desktop` shortcut should be created in `~/.local/share/applications/` for newly created themes so they appear in the `select_theme` menu.
 
 ## Themeable Programs
 
