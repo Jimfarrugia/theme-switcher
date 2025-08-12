@@ -23,13 +23,70 @@
 
 ---
 
+## Notes:
+
+### Todo:
+- rofi
+    - gruvbox
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- waybar
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- starship
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- hyprland
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- hyprlock
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- dunst
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- gtk
+    - gruvbox
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- firefox
+    - gruvbox
+    - nord
+    - catppuccin
+    - rose_pine
+    - everforest
+- [ ] Modify `eza` 'frosty' theme to use nord color palette. (currently using frosty as a stand-in)
+
 `bg transparent`
 - dracula `30, 31, 41, 0.7`
 - tokyo `26, 27, 38, 0.7`
+- gruvbox `40, 40, 40, 0.7`
+- nord `46, 52, 64, 0.7`
+- catppuccin `30, 30, 46, 0.7`
+- rose_pine `25, 23, 36, 0.7`
+- everforest `39, 46, 51, 0.7`
 
 Thought: if we conditionally change the theme for each package depending 
 on whether it's installed or not, this theme switcher could be pretty portable;
 even to KDE.
+
+There is a harder gruvbox theme for kitty, btop.
+
+There is a harder everforest theme for kitty.
 
 ---
 
@@ -54,9 +111,10 @@ even to KDE.
 
 - [x] Tokyo Night (tokyo_night)
 - [x] Dracula (dracula)
-- [ ] Catppuccin Mocha (catppuccin)
-- [ ] Nordic (nordic)
 - [ ] Gruvbox Dark (gruvbox)
+- [ ] Nordic (nordic)
+- [ ] Catppuccin Mocha (catppuccin)
+- [ ] Rose Pine (rose_pine)
 - [ ] Everforest (everforest)
 - Hot Purple Traffic Light** (new custom palette theme based on btop theme)
 
@@ -92,6 +150,11 @@ Checking these off when:
 
 - [x] Tokyo Night
 - [x] Dracula
+- [ ] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
 
 The Rofi theme is set in `~/.config/rofi/config.rasi` by importing the main theme file (`theme.rasi`).
 
@@ -106,6 +169,11 @@ The main theme file exists solely to import two files:
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
 
 There is no way to apply different styling to sections of Waybar modules without using inline styling.
 
@@ -136,6 +204,14 @@ validate_template_theme.sh /path/to/template/file /path/to/theme/file
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
+
+> [!NOTE]
+> Built-in themes are found in `/usr/share/btop/themes/`.
 
 Place theme files in `~/.config/btop/themes/` and define the current theme in `~/.config/btop/btop.conf`.
 
@@ -146,6 +222,11 @@ Place theme files in `~/.config/btop/themes/` and define the current theme in `~
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
 
 The background color is the only difference between themes.
 
@@ -160,6 +241,11 @@ New themes need to be added to the associative array in `apply_imv_theme.sh`.
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
 
 The background color is the only difference between themes.
 
@@ -174,6 +260,11 @@ New themes need to be added to the associative array in `apply_mpv_theme.sh`.
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
 
 There are multiple methods for theming Yazi.
 
@@ -203,6 +294,14 @@ Each theme consists of:
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
+
+> [!NOTE]
+> You can run `kitten themes --dump-theme=yes` to search the built-in themes and save the one you select to the kitty config folder without applying it.
 
 Each theme has a `.conf` file in `~/.config/kitty/themes/`.
 
@@ -215,6 +314,11 @@ The current theme is kept in `~/.config/kitty/theme.conf`.
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
 
 Theme is defined in the `bat/config` file.
 
@@ -226,6 +330,9 @@ It references the name of a built-in theme or the name of a theme in `bat/themes
 Custom themes can be added to `bat/themes` as a `.tmTheme` (sublime config) file.
 
 Built-in themes can be listed with `bat --list-themes`.
+
+> [!NOTE]
+> Built-in themes can be found [here](#https://github.com/sharkdp/bat/tree/master/assets/themes)
 
 After adding a custom theme, you need to run `bat cache --build` to make it available to bat.
 
@@ -240,11 +347,13 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord        (using 'frosty' community theme)
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest   (using everforest-medium community theme)
 
 [Eza community themes](https://github.com/eza-community/eza-themes) (has most of the themes I want) I downloaded them all.  They're in the config dir.
-
-> [!NOTE]
-> 'frosty' looks like it would fit well as a stand-in for Nord.
 
 `apply_eza_theme.sh "theme_name"`
   - overwrite `eza/theme.yml` in the config directory
@@ -254,6 +363,11 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
 
 Starship's theming is baked into the general configuration. There are no separate theme files.
 
@@ -283,6 +397,11 @@ validate_template_theme.sh /path/to/template/file /path/to/theme/file
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
 
 Hyprland and it's sister apps support directly sourcing `.conf` files in their configs.
 
@@ -298,6 +417,11 @@ Hyprland's theme file is sourced into the parent config file just like all the o
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
 
 Hyprland and it's sister apps support directly sourcing `.conf` files in their configs.
 
@@ -313,6 +437,11 @@ Hyprland's theme file is sourced into the parent config file just like all the o
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
 
 Zero files are natively imported by dunst.  Everything is supposed to be placed within `dunstrc`.  But many OS' will automatically merge 1 or more files from `~/.config/dunst/dunstrc.d/`. So at the time of writing, I had a `themes.conf` file in that directory which had both of my previous themes with only one that wasn't commented out.
 
@@ -325,7 +454,6 @@ Icon themes are stored in `~/.config/dunst/icons/theme_name` and are referenced 
 When adding a new theme, icons can be recolored with `imagemagick`:
 ```sh
 # 'fill' is the new color
-# 'opaque' is the old color
 magick input.png -fill "#FFAAAA" -colorize 100% output.png
 ```
 
@@ -344,6 +472,11 @@ magick input.png -fill "#FFAAAA" -colorize 100% output.png
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
 
 The current theme is defined in the `nvim/lua/plugins/colorscheme.lua` file.
 
@@ -357,6 +490,15 @@ A `themes` directory has been added to the nvim config directory which will stor
 
 - [x] Tokyo Night
 - [x] Dracula
+- [ ] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
+
+> [!NOTE]
+> [Yaru](#https://github.com/ubuntu/yaru/tree/master/gtk/src) might be a good all-purpose icon theme.
+> It comes with different color variations (eg. `Yaru-olive`, `Yaru-sage`).
 
 GTK themes are in `~/.local/share/themes`
 
@@ -378,6 +520,11 @@ The theme name and the icon name should be identical.
 
 - [x] Tokyo Night
 - [x] Dracula
+- [ ] Gruvbox
+- [ ] Nord
+- [ ] Catppucin
+- [ ] Rose Pine
+- [ ] Everforest
 
 Some of the firefox styling comes from the GTK theme and some is from `~/.mozilla/firefox/PROFILE_DIR/chrome/userChrome.css`
 
@@ -400,6 +547,11 @@ apply_firefox_theme.sh "theme_name"
 
 - [x] Tokyo Night
 - [x] Dracula
+- [x] Gruvbox
+- [x] Nord
+- [x] Catppucin
+- [x] Rose Pine
+- [x] Everforest
 
 Theme wallpapers are in `~/Picutres/Wallpaper/themes/`.
 
