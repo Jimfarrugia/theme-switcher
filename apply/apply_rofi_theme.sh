@@ -29,4 +29,4 @@ fi
 # Change the name of the color scheme file to import in theme.rasi
 sed -i "s|\(@import \"themes/colorschemes/\)[^\"]*\(.rasi\"\)|\1$THEME_NAME\2|" $ROFI_THEME_FILE
 
-echo -e "\e[32m✅ \e[0mWaybar theme '$THEME_NAME' applied."
+echo -e "\e[32m✅ \e[0mRofi theme '$THEME_NAME' applied."
