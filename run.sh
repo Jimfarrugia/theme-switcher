@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Applies a theme to all themeable apps. (see scripts in /apply)
+# Calls the wallpaper-setting script with a theme wallpaper.
+# Saves theme data to ~/.local/share/theme_data
+#
+# Usage: run.sh "theme_name"
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
