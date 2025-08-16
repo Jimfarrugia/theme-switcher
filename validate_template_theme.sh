@@ -31,7 +31,7 @@ if [[ ! -f "$TEMPLATE_FILE" ]]; then
 fi
 
 # Extract all placeholders from the template (ignores lines that begin with '#')
-TEMPLATE_VARS=$(grep -v '^[[:space:]]*#' "$TEMPLATE_FILE" | grep -o '\${[A-Z0-9_]\+}' | tr -d '${}' | sort -u)
+TEMPLATE_VARS=$(grep -v '^[[:space:]]*#' "$TEMPLATE_FILE" | grep -o "\${[A-Z0-9_]\+}" | tr -d "\${}" | sort -u)
 
 # Extract all exported placeholders from the theme file
 THEME_EXPORTS=$(grep -oE '^export +[A-Z0-9_]+=' "$THEME_FILE" | sed 's/^export *//' | cut -d= -f1 | sort -u)

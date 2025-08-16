@@ -30,10 +30,11 @@ fi
 cp "$THEME_FILE" "$KITTY_CONFIG_DIR/theme.conf"
 
 # Reload kitty config
-# (also handle case where kitty is not running so `kill` doesn't throw an error)
-kitty_pids=$(pgrep kitty)
-if [[ -n "$kitty_pids" ]]; then
-  kill -SIGUSR1 $kitty_pids
+# Use an array to safely capture all kitty PIDs from pgrep.
+# Avoids word-splitting/globbing issues and passes shellcheck cleanly.
+mapfile -t kitty_pids < <(pgrep kitty)
+if ((${#kitty_pids[@]} > 0)); then
+  kill -SIGUSR1 "${kitty_pids[@]}"
 fi
 
 echo -e "\e[32m✅ \e[0mKitty theme '$THEME_NAME' applied."

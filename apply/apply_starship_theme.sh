@@ -34,7 +34,7 @@ PLACEHOLDERS=$(compgen -v | grep -E '^[A-Z_]+$' | tr '\n' ' ')
 # Use envsubst to substitute only those variables
 envsubst "$(
   for var in $PLACEHOLDERS; do
-    printf '${%s} ' "$var"
+    printf "\${%s} " "$var"
   done
 )" <"$CONFIG_TEMPLATE_FILE" >"$FINAL_CONFIG_FILE"
 
