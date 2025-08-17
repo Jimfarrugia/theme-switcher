@@ -9,25 +9,29 @@
 
 set -eo pipefail
 
-THEME_NAME="$1" # eg. tokyo_night
+if pacman -Q neovim &>/dev/null; then
 
-NVIM_CONFIG_DIR="$HOME/.config/nvim"
-THEMES_DIR="$NVIM_CONFIG_DIR/themes"
-THEME_FILE="$THEMES_DIR/$THEME_NAME.lua"
+  THEME_NAME="$1" # eg. tokyo_night
 
-# Make sure theme name was provided
-if [[ -z $THEME_NAME ]]; then
-  echo -e "\e[31m \e[0mnvim theme name argument wasn't provided."
-  exit 1
+  NVIM_CONFIG_DIR="$HOME/.config/nvim"
+  THEMES_DIR="$NVIM_CONFIG_DIR/themes"
+  THEME_FILE="$THEMES_DIR/$THEME_NAME.lua"
+
+  # Make sure theme name was provided
+  if [[ -z $THEME_NAME ]]; then
+    echo -e "\e[31m \e[0mnvim theme name argument wasn't provided."
+    exit 1
+  fi
+
+  # Make sure the theme exists
+  if [[ ! -f "$THEME_FILE" ]]; then
+    echo -e "\e[31m \e[0mnvim theme '$THEME_NAME' not found."
+    exit 1
+  fi
+
+  # Overwrite current theme file with a copy of the new theme's file.
+  cp "$THEME_FILE" "$NVIM_CONFIG_DIR/lua/plugins/colorscheme.lua"
+
+  echo -e "\e[32m✅ \e[0mnvim theme '$THEME_NAME' applied."
+
 fi
-
-# Make sure the theme exists
-if [[ ! -f "$THEME_FILE" ]]; then
-  echo -e "\e[31m \e[0mnvim theme '$THEME_NAME' not found."
-  exit 1
-fi
-
-# Overwrite current theme file with a copy of the new theme's file.
-cp "$THEME_FILE" "$NVIM_CONFIG_DIR/lua/plugins/colorscheme.lua"
-
-echo -e "\e[32m✅ \e[0mnvim theme '$THEME_NAME' applied."

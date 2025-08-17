@@ -30,10 +30,6 @@
 - [ ] Add tmux theme(s)
 - [ ] Modify `eza` 'frosty' theme to use nord color palette. (currently using frosty as a stand-in)
 
-Thought: if we conditionally change the theme for each package depending 
-on whether it's installed or not, this theme switcher could be pretty portable;
-even to KDE.
-
 ---
 
 ## Themes
