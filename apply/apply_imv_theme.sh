@@ -23,6 +23,7 @@ if pacman -Q imv &>/dev/null; then
   themes["catppuccin"]="#1E1E2E"
   themes["rose_pine"]="#191724"
   themes["everforest"]="#272E33"
+  themes["eldritch"]="#171928"
 
   # Make sure theme name was provided
   if [[ -z $THEME_NAME ]]; then
