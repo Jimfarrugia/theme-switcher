@@ -321,13 +321,12 @@ A `themes` directory has been added to the nvim config directory which will stor
 
 The colors are edited by setting the `$FZF_DEFAULT_OPTS` environment variable with the colors to be used.
 
-The current theme is defined in the `$ZSH_CONFIG_HOME/fzf_colors.zsh` file.
+The current theme is defined in the `$ZSH_CONFIG_HOME/fzf_colors.zsh` file which is sourced in `.zshrc`.
 
-A `themes` directory has been added to the nvim config directory which will store the theme collection.
+A `fzf_themes` directory has been added to the `$ZSH_CONFIG_HOME` directory (where `.zshrc` lives) which will store the theme collection.
 
-`apply_nvim_theme.sh "theme_name"`
-  - overwrite `nvim/lua/plugins/colorscheme.lua` in the config directory
-    with new theme file from `nvim/themes`
+`apply_fzf_theme.sh "theme_name"`
+  - overwrite `$ZSH_CONFIG_HOME/fzf_colors.zsh` with new theme file from `$ZSH_CONFIG_HOME/fzf_themes/`. 
 
 ### GTK
 
