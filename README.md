@@ -2,32 +2,32 @@
 
 1. [Themes](#Themes)
 2. [Themeable Programs](#Themeable-Programs)
-3. [Validation Script](#Validation-Script)
-4. [Rofi](#rofi)
-5. [Waybar](#Waybar)
-6. [btop](#btop)
-7. [imv](#imv)
-8. [mpv](#mpv)
-9. [Yazi](#yazi)
-10. [Kitty](#kitty)
-11. [bat](#bat)
-12. [eza](#eza)
-13. [Starship](#starship)
-14. [Hyprland](#hyprland)
-15. [Hyprlock](#hyprlock)
-16. [dunst](#dunst)
-17. [Neovim](#nvim)
-18. [GTK](#gtk)
-19. [Firefox](#firefox)
-20. [Wallpaper](#Wallpaper)
-21. [Shortcut](#shortcut)
+3. [Wallpaper](#Wallpaper)
+4. [Shortcut](#shortcut)
+5. [Theming Strategies](#Theming-strategies)
+    1. [Rofi](#rofi)
+    2. [Waybar](#Waybar)
+    3. [btop](#btop)
+    4. [imv](#imv)
+    5. [mpv](#mpv)
+    6. [Yazi](#yazi)
+    7. [Kitty](#kitty)
+    8. [bat](#bat)
+    9. [eza](#eza)
+    10. [Starship](#starship)
+    11. [Hyprland](#hyprland)
+    12. [Hyprlock](#hyprlock)
+    13. [dunst](#dunst)
+    14. [Neovim](#nvim)
+    15. [FZF](#fzf)
+    16. [GTK](#gtk)
+    17. [Firefox](#firefox)
 
 ---
 
 ## Notes:
 
 ### Todo:
-- [ ] Add tmux theme(s)
 - [ ] Modify `eza` 'frosty' theme to use nord color palette. (currently using frosty as a stand-in)
 
 ---
@@ -41,6 +41,7 @@
 - [x] Catppuccin Mocha (catppuccin)
 - [x] Rose Pine (rose_pine)
 - [x] Everforest (everforest)
+- [x] Eldritch (eldritch)
 - Hot Purple Traffic Light** (new custom palette theme based on btop theme)
 
 - A `.desktop` shortcut should be created in `~/.local/share/applications/` for newly created themes so they appear in the `select_theme` menu.
@@ -63,10 +64,32 @@
 - [x] starship
 - [x] gtk
 - [x] firefox
+- [x] tmux
+- [ ] fzf
 
 ---
 
-## Rofi
+### Wallpaper
+
+Theme wallpapers are in `~/Picutres/Wallpaper/themes/`.
+
+There is a directory for each `theme_name` containing wallpapers that fit well with the theme.
+
+---
+
+### Shortcut
+
+There is a `.desktop` file for each theme in `~/.local/share/applications/themes/`.
+
+These are not hidden by default.  They are used to define the list items for the `select_theme` script which lists all available themes in a Rofi dmenu.
+
+---
+
+## Theming Strategies
+
+The sections below document how each application is themed and how the theme switcher applies a new theme.
+
+### Rofi
 
 The Rofi theme is set in `~/.config/rofi/config.rasi` by importing the main theme file (`theme.rasi`).
 
@@ -77,7 +100,7 @@ The main theme file exists solely to import two files:
 - `apply_rofi_theme.sh "theme_name"`
   - change color scheme file import in `~/.config/rofi/theme.rasi`
 
-## Waybar
+### Waybar
 
 There is no way to apply different styling to sections of Waybar modules without using inline styling.
 
@@ -104,7 +127,7 @@ validate_template_theme.sh /path/to/template/file /path/to/theme/file
   - copy `~/.config/waybar/themes/theme_name/colors.css` to `~/.config/waybar/colors.css` (overwriting existing)
   - restart waybar silently
 
-## btop
+### btop
 
 > [!NOTE]
 > Built-in themes are found in `/usr/share/btop/themes/`.
@@ -114,7 +137,7 @@ Place theme files in `~/.config/btop/themes/` and define the current theme in `~
 - `apply_btop_theme.sh "theme_name"`
   - change `color_theme` definition in `~/.config/btop/btop.conf`
 
-## imv
+### imv
 
 The background color is the only difference between themes.
 
@@ -125,7 +148,7 @@ New themes need to be added to the associative array in `apply_imv_theme.sh`.
   - replaces the background color in the current config 
     with the selected theme's background color.
 
-## mpv
+### mpv
 
 The background color is the only difference between themes.
 
@@ -136,7 +159,7 @@ New themes need to be added to the associative array in `apply_mpv_theme.sh`.
   - replaces the background color in the current config 
     with the selected theme's background color.
 
-## Yazi
+### Yazi
 
 There are multiple methods for theming Yazi.
 
@@ -162,7 +185,7 @@ Each theme consists of:
   - `rm -rf theme.toml` ^
   - copy `yazi/themes/theme_name/*` to `yazi/`
 
-## Kitty
+### Kitty
 
 > [!NOTE]
 > You can run `kitten themes --dump-theme=yes` to search the built-in themes and save the one you select to the kitty config folder without applying it.
@@ -174,7 +197,7 @@ The current theme is kept in `~/.config/kitty/theme.conf`.
 `apply_kitty_theme.sh "theme_name`
   - overwrite `~/.config/kitty/theme.conf` with the new theme's file
 
-## bat
+### bat
 
 Theme is defined in the `bat/config` file.
 
@@ -199,7 +222,7 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
   - run `bat cache --build` to make sure newly added themes are available
   - Copy the new theme's file to overwrite `current-theme.tmTheme`
 
-## eza
+### eza
 
 [Eza community themes](https://github.com/eza-community/eza-themes) (has most of the themes I want) I downloaded them all.  They're in the config dir.
 
@@ -207,7 +230,7 @@ After adding a custom theme, you need to run `bat cache --build` to make it avai
   - overwrite `eza/theme.yml` in the config directory
     with new theme file from the `eze/themes/` directory.
 
-## Starship
+### Starship
 
 Starship's theming is baked into the general configuration. There are no separate theme files.
 
@@ -233,7 +256,7 @@ validate_template_theme.sh /path/to/template/file /path/to/theme/file
   - expand placeholder variables in template with values (using envsubst)
   - save result as `~/.config/starship.toml` (overwriting existing)
 
-## Hyprland
+### Hyprland
 
 Hyprland and it's sister apps support directly sourcing `.conf` files in their configs.
 
@@ -245,7 +268,7 @@ Hyprland's theme file is sourced into the parent config file just like all the o
   - overwrite `hypr/themes/hyprland/current_theme.conf` in the config directory
     with new theme file from the same directory.
 
-## Hyprlock
+### Hyprlock
 
 Hyprland and it's sister apps support directly sourcing `.conf` files in their configs.
 
@@ -257,7 +280,7 @@ Hyprland's theme file is sourced into the parent config file just like all the o
   - overwrite `hypr/themes/hyprlock/current_theme.conf` in the config directory
     with new theme file from the same directory.
 
-## dunst
+### dunst
 
 Zero files are natively imported by dunst.  Everything is supposed to be placed within `dunstrc`.  But many OS' will automatically merge 1 or more files from `~/.config/dunst/dunstrc.d/`. So at the time of writing, I had a `themes.conf` file in that directory which had both of my previous themes with only one that wasn't commented out.
 
@@ -284,7 +307,7 @@ magick input.png -fill "#FFAAAA" -colorize 100% output.png
     with new theme file from `dunst/themes`
   - restart dunst service
 
-## nvim
+### nvim
 
 The current theme is defined in the `nvim/lua/plugins/colorscheme.lua` file.
 
@@ -294,11 +317,19 @@ A `themes` directory has been added to the nvim config directory which will stor
   - overwrite `nvim/lua/plugins/colorscheme.lua` in the config directory
     with new theme file from `nvim/themes`
 
-## GTK
+### FZF
 
-> [!NOTE]
-> [Yaru](#https://github.com/ubuntu/yaru/tree/master/gtk/src) might be a good all-purpose icon theme.
-> It comes with different color variations (eg. `Yaru-olive`, `Yaru-sage`).
+The colors are edited by setting the `$FZF_DEFAULT_OPTS` environment variable with the colors to be used.
+
+The current theme is defined in the `$ZSH_CONFIG_HOME/fzf_colors.zsh` file.
+
+A `themes` directory has been added to the nvim config directory which will store the theme collection.
+
+`apply_nvim_theme.sh "theme_name"`
+  - overwrite `nvim/lua/plugins/colorscheme.lua` in the config directory
+    with new theme file from `nvim/themes`
+
+### GTK
 
 GTK themes are in `~/.local/share/themes`
 
@@ -314,9 +345,23 @@ The theme name and the icon name should be identical.
   - modify the gtk3 settings file to use the new theme
   - apply changes live via gsettings
 
+###### Custom GTK Themes
+
+Custom GTK themes can be created with `themix`/`oomox theme designer` (available in the AUR).
+
+Copy a preset and edit the colors. Export the theme and implement it the same way you would with any other.
+
+> [!NOTE]
+> Don't select "create a dark variant" unless you're theming it for light by default 
+> because the background/foreground colors will be flipped if you always prefer dark in gtk settings.
+
+> [!NOTE]
+> Pavucontrol (and maybe Firefox?) use GTK4 themes which aren't created by themix.
+> The Eldritch theme has a template for a very basic GTK4 theme.  Just copy and edit that.
+
 ---
 
-## Firefox
+### Firefox
 
 Some of the firefox styling comes from the GTK theme and some is from `~/.mozilla/firefox/PROFILE_DIR/chrome/userChrome.css`
 
@@ -333,20 +378,3 @@ Theme files are not stowed so they only exist in the dotfiles directory.
 apply_firefox_theme.sh "theme_name"
   - replace the color values in `userChrome.css` with the new theme colors
 
----
-
-## Wallpaper
-
-Theme wallpapers are in `~/Picutres/Wallpaper/themes/`.
-
-There is a directory for each `theme_name` containing wallpapers that fit well with the theme.
-
----
-
-## Shortcut
-
-There is a `.desktop` file for each theme in `~/.local/share/applications/themes/`.
-
-These are not hidden by default.  They are used to define the list items for the `select_theme` script which lists all available themes in a Rofi dmenu.
-
----
