@@ -11,7 +11,7 @@ if pacman -Q starship &>/dev/null; then
   STARSHIP_CONFIG_DIR="$HOME/.config/starship"
 
   THEME_NAME="$1"
-  THEME_FILE="$STARSHIP_CONFIG_DIR/themes/${THEME_NAME}.sh"
+  THEME_FILE="$STARSHIP_CONFIG_DIR/themes/$THEME_NAME.sh"
 
   CONFIG_TEMPLATE_FILE="$STARSHIP_CONFIG_DIR/starship.template.toml"
   FINAL_CONFIG_FILE="$STARSHIP_CONFIG_DIR/starship.toml"
@@ -26,6 +26,10 @@ if pacman -Q starship &>/dev/null; then
     echo -e "\e[31m \e[0mStarship theme not found: $THEME_FILE"
     exit 1
   fi
+
+  # Validate starship theme
+  echo -e "\nValidating Starship theme..."
+  bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_FILE"
 
   # Source and export all theme variables
   source "$THEME_FILE"

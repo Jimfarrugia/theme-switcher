@@ -29,12 +29,6 @@ PRETTY_THEME_NAME="${PRETTY_THEME_NAME%?}" # remove trailing space
 
 echo "Switching theme to $PRETTY_THEME_NAME."
 
-# Validate starship theme
-echo -e "\nValidating Starship theme..."
-STARSHIP_TEMPLATE_FILE="$HOME/.config/starship/starship.template.toml"
-STARSHIP_THEME_FILE="$HOME/.config/starship/themes/$THEME_NAME.sh"
-bash "$SCRIPT_DIR/validate_template_theme.sh" "$STARSHIP_TEMPLATE_FILE" "$STARSHIP_THEME_FILE"
-
 # Apply theme to each application
 echo -e "\nApplying $PRETTY_THEME_NAME theme..."
 for script in "$SCRIPT_DIR"/apply/apply_*.sh; do
