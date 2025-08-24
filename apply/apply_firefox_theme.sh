@@ -11,7 +11,8 @@
 
 set -eo pipefail
 
-if pacman -Q firefox &>/dev/null; then
+# Only apply this theme if firefox is installed and desktop env is not KDE.
+if pacman -Q firefox &>/dev/null && ! pacman -Q plasma-desktop &>/dev/null; then
 
   THEME_NAME="$1" # eg. tokyo_night
   DOTFILES_FIREFOX_CONFIG="$HOME/dotfiles/_unstowed/.mozilla/firefox/profile.default-release"
