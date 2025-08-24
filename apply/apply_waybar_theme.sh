@@ -18,6 +18,7 @@ if pacman -Q waybar &>/dev/null; then
 
   THEME_NAME="$1" # eg. tokyo_night
   THEME_DIR="$WAYBAR_THEMES_DIR/$THEME_NAME"
+  THEME_SH_FILE="$WAYBAR_THEMES_DIR/$THEME_NAME/colors.sh"
 
   # Make sure theme name was provided
   if [[ -z $THEME_NAME ]]; then
@@ -32,13 +33,17 @@ if pacman -Q waybar &>/dev/null; then
   fi
 
   # Make sure required theme files exist
-  if [[ ! -f "$THEME_DIR/colors.sh" || ! -f "$THEME_DIR/colors.css" ]]; then
+  if [[ ! -f "$THEME_SH_FILE" || ! -f "$THEME_DIR/colors.css" ]]; then
     echo -e "\e[31m \e[0m Waybar theme '$THEME_NAME' is missing required files."
     exit 1
   fi
 
+  # Validate waybar theme
+  echo -e "\nValidating Waybar theme..."
+  bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_SH_FILE"
+
   # Source and export all theme variables
-  source "$THEME_DIR/colors.sh"
+  source "$THEME_SH_FILE"
 
   # Generate config.jsonc
   envsubst <"$CONFIG_TEMPLATE_FILE" >"$FINAL_CONFIG_FILE"

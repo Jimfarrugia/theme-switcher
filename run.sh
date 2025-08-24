@@ -29,12 +29,6 @@ PRETTY_THEME_NAME="${PRETTY_THEME_NAME%?}" # remove trailing space
 
 echo "Switching theme to $PRETTY_THEME_NAME."
 
-# Validate waybar theme
-echo -e "\nValidating Waybar theme..."
-WAYBAR_TEMPLATE_FILE="$HOME/.config/waybar/config.template.jsonc"
-WAYBAR_THEME_FILE="$HOME/.config/waybar/themes/$THEME_NAME/colors.sh"
-bash "$SCRIPT_DIR/validate_template_theme.sh" "$WAYBAR_TEMPLATE_FILE" "$WAYBAR_THEME_FILE"
-
 # Validate starship theme
 echo -e "\nValidating Starship theme..."
 STARSHIP_TEMPLATE_FILE="$HOME/.config/starship/starship.template.toml"
