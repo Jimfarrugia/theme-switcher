@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# Applies a theme to all themeable apps. (see scripts in /apply)
-# Calls the wallpaper-setting script with a theme wallpaper.
-# Saves theme data to ~/.local/share/theme_data
+# Desc: Applies a theme to all themeable apps. (see scripts in /apply)
+#       If not running in a KDE environment:
+#         - Calls the wallpaper script with a theme wallpaper.
+#         - Saves theme data to ~/.local/share/theme_data
 #
-# Usage: run.sh "theme_name"
+# Usage: run.sh "theme_name" "skip_gtk (true|false)"
 
 set -euo pipefail
 
@@ -17,6 +18,7 @@ if [[ -z "${1-}" ]]; then
 fi
 
 THEME_NAME="$1"
+SKIP_GTK="${2:-false}"
 
 # Prettify the theme name
 formatted_theme_name="${THEME_NAME//_/ }"
@@ -32,6 +34,11 @@ echo "Switching theme to $PRETTY_THEME_NAME."
 # Apply theme to each application
 echo -e "\nApplying $PRETTY_THEME_NAME theme..."
 for script in "$SCRIPT_DIR"/apply/apply_*.sh; do
+  # Skip GTK script if SKIP_GTK is true
+  if [[ "$SKIP_GTK" == "true" && "$(basename "$script")" == "apply_gtk_theme.sh" ]]; then
+    echo "Skipping applying GTK theme."
+    continue
+  fi
   bash "$script" "$THEME_NAME"
 done
 
