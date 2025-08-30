@@ -32,6 +32,9 @@ if pacman -Q tmux &>/dev/null; then
   # Overwrite current theme file with a copy of the new theme's file.
   cp "$THEME_FILE" "$TMUX_CONFIG_DIR/current_theme.conf"
 
+  # reload tmux config
+  tmux source-file "$TMUX_CONFIG_DIR/tmux.conf" 2>/dev/null
+
   echo -e "\e[32m✅ \e[0mtmux theme '$THEME_NAME' applied."
 
 fi
