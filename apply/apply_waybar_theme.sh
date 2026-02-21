@@ -28,34 +28,32 @@ if pacman -Q waybar &>/dev/null; then
 
   # Make sure the theme exists
   if [[ ! -d "$THEME_DIR" ]]; then
-    echo -e "\e[31m \e[0m Waybar theme '$THEME_NAME' not found."
-    exit 1
+    echo -e "\e[31m \e[0m Waybar theme '$THEME_NAME' not found... skipping..."
+  else
+    # Make sure required theme files exist
+    if [[ ! -f "$THEME_SH_FILE" || ! -f "$THEME_DIR/colors.css" ]]; then
+      echo -e "\e[31m \e[0m Waybar theme '$THEME_NAME' is missing required files."
+      exit 1
+    fi
+
+    # Validate waybar theme
+    echo -e "\nValidating Waybar theme..."
+    bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_SH_FILE"
+
+    # Source and export all theme variables
+    source "$THEME_SH_FILE"
+
+    # Generate config.jsonc
+    envsubst <"$CONFIG_TEMPLATE_FILE" >"$FINAL_CONFIG_FILE"
+
+    # Overwrite current colors.css file with the theme's colors.css file
+    cp "$THEME_DIR/colors.css" "$WAYBAR_CONFIG_DIR/colors.css"
+
+    # Restart Waybar silently
+    killall waybar >/dev/null 2>&1 || true
+    sleep 0.3
+    nohup waybar >/dev/null 2>&1 </dev/null &
+
+    echo -e "\e[32m✅\e[0m Waybar theme '$THEME_NAME' applied."
   fi
-
-  # Make sure required theme files exist
-  if [[ ! -f "$THEME_SH_FILE" || ! -f "$THEME_DIR/colors.css" ]]; then
-    echo -e "\e[31m \e[0m Waybar theme '$THEME_NAME' is missing required files."
-    exit 1
-  fi
-
-  # Validate waybar theme
-  echo -e "\nValidating Waybar theme..."
-  bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_SH_FILE"
-
-  # Source and export all theme variables
-  source "$THEME_SH_FILE"
-
-  # Generate config.jsonc
-  envsubst <"$CONFIG_TEMPLATE_FILE" >"$FINAL_CONFIG_FILE"
-
-  # Overwrite current colors.css file with the theme's colors.css file
-  cp "$THEME_DIR/colors.css" "$WAYBAR_CONFIG_DIR/colors.css"
-
-  # Restart Waybar silently
-  killall waybar >/dev/null 2>&1 || true
-  sleep 0.3
-  nohup waybar >/dev/null 2>&1 </dev/null &
-
-  echo -e "\e[32m✅\e[0m Waybar theme '$THEME_NAME' applied."
-
 fi

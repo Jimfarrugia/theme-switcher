@@ -25,17 +25,15 @@ if pacman -Q yazi &>/dev/null; then
 
   # Make sure the theme exists
   if [[ ! -d "$THEME_DIR" ]]; then
-    echo -e "\e[31m \e[0mYazi theme '$THEME_NAME' not found."
-    exit 1
+    echo -e "\e[31m \e[0mYazi theme '$THEME_NAME' not found... skipping..."
+  else
+    # Remove current theme's files from the config directory
+    rm -rf "$YAZI_CONFIG_DIR/flavors" \
+      "$YAZI_CONFIG_DIR/theme.tmTheme" "$YAZI_CONFIG_DIR/theme.toml"
+
+    # Copy the new theme's files to the config directory
+    cp -r "$THEME_DIR/." "$YAZI_CONFIG_DIR/"
+
+    echo -e "\e[32m✅ \e[0mYazi theme '$THEME_NAME' applied."
   fi
-
-  # Remove current theme's files from the config directory
-  rm -rf "$YAZI_CONFIG_DIR/flavors" \
-    "$YAZI_CONFIG_DIR/theme.tmTheme" "$YAZI_CONFIG_DIR/theme.toml"
-
-  # Copy the new theme's files to the config directory
-  cp -r "$THEME_DIR/." "$YAZI_CONFIG_DIR/"
-
-  echo -e "\e[32m✅ \e[0mYazi theme '$THEME_NAME' applied."
-
 fi

@@ -24,16 +24,14 @@ if pacman -Q bat &>/dev/null; then
 
   # Make sure the theme exists
   if [[ ! -f "$THEME_FILE" ]]; then
-    echo -e "\e[31m \e[0mBat theme '$THEME_NAME' not found."
-    exit 1
+    echo -e "\e[31m \e[0mBat theme '$THEME_NAME' not found... skipping..."
+  else
+    # Overwrite current theme file with a copy of the new theme's file.
+    cp "$THEME_FILE" "$BAT_CONFIG_DIR/themes/current-theme.tmTheme"
+
+    # Rebuild bat's cache
+    bat cache --build
+
+    echo -e "\e[32m✅ \e[0mBat theme '$THEME_NAME' applied."
   fi
-
-  # Overwrite current theme file with a copy of the new theme's file.
-  cp "$THEME_FILE" "$BAT_CONFIG_DIR/themes/current-theme.tmTheme"
-
-  # Rebuild bat's cache
-  bat cache --build
-
-  echo -e "\e[32m✅ \e[0mBat theme '$THEME_NAME' applied."
-
 fi

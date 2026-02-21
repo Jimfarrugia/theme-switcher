@@ -23,27 +23,25 @@ if pacman -Q starship &>/dev/null; then
   fi
 
   if [[ ! -f "$THEME_FILE" ]]; then
-    echo -e "\e[31m \e[0mStarship theme not found: $THEME_FILE"
-    exit 1
+    echo -e "\e[31m \e[0mStarship theme not found: ${THEME_NAME}... skipping..."
+  else
+    # Validate starship theme
+    echo -e "\nValidating Starship theme..."
+    bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_FILE"
+
+    # Source and export all theme variables
+    source "$THEME_FILE"
+
+    # Extract all UPPERCASE snake_case environment variable names
+    PLACEHOLDERS=$(compgen -v | grep -E '^[A-Z_]+$' | tr '\n' ' ')
+
+    # Use envsubst to substitute only those variables
+    envsubst "$(
+      for var in $PLACEHOLDERS; do
+        printf "\${%s} " "$var"
+      done
+    )" <"$CONFIG_TEMPLATE_FILE" >"$FINAL_CONFIG_FILE"
+
+    echo -e "\e[32m✅ \e[0mStarship theme '$THEME_NAME' applied."
   fi
-
-  # Validate starship theme
-  echo -e "\nValidating Starship theme..."
-  bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_FILE"
-
-  # Source and export all theme variables
-  source "$THEME_FILE"
-
-  # Extract all UPPERCASE snake_case environment variable names
-  PLACEHOLDERS=$(compgen -v | grep -E '^[A-Z_]+$' | tr '\n' ' ')
-
-  # Use envsubst to substitute only those variables
-  envsubst "$(
-    for var in $PLACEHOLDERS; do
-      printf "\${%s} " "$var"
-    done
-  )" <"$CONFIG_TEMPLATE_FILE" >"$FINAL_CONFIG_FILE"
-
-  echo -e "\e[32m✅ \e[0mStarship theme '$THEME_NAME' applied."
-
 fi

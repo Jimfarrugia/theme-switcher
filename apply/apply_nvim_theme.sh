@@ -25,13 +25,11 @@ if pacman -Q neovim &>/dev/null; then
 
   # Make sure the theme exists
   if [[ ! -f "$THEME_FILE" ]]; then
-    echo -e "\e[31m \e[0mnvim theme '$THEME_NAME' not found."
-    exit 1
+    echo -e "\e[31m \e[0mnvim theme '$THEME_NAME' not found... skipping..."
+  else
+    # Overwrite current theme file with a copy of the new theme's file.
+    cp "$THEME_FILE" "$NVIM_CONFIG_DIR/lua/plugins/colorscheme.lua"
+
+    echo -e "\e[32m✅ \e[0mnvim theme '$THEME_NAME' applied."
   fi
-
-  # Overwrite current theme file with a copy of the new theme's file.
-  cp "$THEME_FILE" "$NVIM_CONFIG_DIR/lua/plugins/colorscheme.lua"
-
-  echo -e "\e[32m✅ \e[0mnvim theme '$THEME_NAME' applied."
-
 fi

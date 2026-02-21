@@ -25,16 +25,14 @@ if pacman -Q dunst &>/dev/null; then
 
   # Make sure the theme exists
   if [[ ! -f "$THEME_FILE" ]]; then
-    echo -e "\e[31m \e[0mDunst theme '$THEME_NAME' not found."
-    exit 1
+    echo -e "\e[31m \e[0mDunst theme '$THEME_NAME' not found... skipping..."
+  else
+    # Overwrite current theme file with a copy of the new theme's file.
+    cp "$THEME_FILE" "$DUNST_CONFIG_DIR/dunstrc.d/current_theme.conf"
+
+    # Restart dunst service
+    systemctl --user restart dunst
+
+    echo -e "\e[32m✅ \e[0mDunst theme '$THEME_NAME' applied."
   fi
-
-  # Overwrite current theme file with a copy of the new theme's file.
-  cp "$THEME_FILE" "$DUNST_CONFIG_DIR/dunstrc.d/current_theme.conf"
-
-  # Restart dunst service
-  systemctl --user restart dunst
-
-  echo -e "\e[32m✅ \e[0mDunst theme '$THEME_NAME' applied."
-
 fi

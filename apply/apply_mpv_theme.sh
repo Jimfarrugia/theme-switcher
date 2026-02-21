@@ -24,6 +24,7 @@ if pacman -Q mpv &>/dev/null; then
   themes["rose_pine"]="#191724"
   themes["everforest"]="#272E33"
   themes["eldritch"]="#171928"
+  themes["poimandres"]="#1b1e28"
 
   # Make sure theme name was provided
   if [[ -z $THEME_NAME ]]; then
@@ -33,22 +34,20 @@ if pacman -Q mpv &>/dev/null; then
 
   # Check if a key of $THEME_NAME exists in the array
   if [[ -z "${themes[$THEME_NAME]+_}" ]]; then
-    echo -e "\e[31m \e[0mmpv theme '$THEME_NAME' not found."
-    exit 1
+    echo -e "\e[31m \e[0mmpv theme '$THEME_NAME' not found... skipping..."
+  else
+    # Make sure the config file exists
+    if [[ ! -f "$MPV_CONFIG_FILE" ]]; then
+      echo -e "\e[31m \e[0mmpv config file not found."
+      exit 1
+    fi
+
+    # Get the new background color from the theme
+    new_background="${themes[$THEME_NAME]}"
+
+    # Replace the 'background' line in the config file
+    sed -i "s/^background-color.*/background-color=\"$new_background\"/" "$MPV_CONFIG_FILE"
+
+    echo -e "\e[32m✅ \e[0mmpv theme '$THEME_NAME' applied."
   fi
-
-  # Make sure the config file exists
-  if [[ ! -f "$MPV_CONFIG_FILE" ]]; then
-    echo -e "\e[31m \e[0mmpv config file not found."
-    exit 1
-  fi
-
-  # Get the new background color from the theme
-  new_background="${themes[$THEME_NAME]}"
-
-  # Replace the 'background' line in the config file
-  sed -i "s/^background-color.*/background-color=\"$new_background\"/" "$MPV_CONFIG_FILE"
-
-  echo -e "\e[32m✅ \e[0mmpv theme '$THEME_NAME' applied."
-
 fi

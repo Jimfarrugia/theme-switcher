@@ -24,13 +24,11 @@ if pacman -Q rofi &>/dev/null; then
 
   # Make sure the color scheme file exists
   if [[ ! -f "$COLORSCHEMES_DIR/$THEME_NAME.rasi" ]]; then
-    echo -e "\e[31m \e[0mRofi color scheme '$THEME_NAME' not found."
-    exit 1
+    echo -e "\e[31m \e[0mRofi color scheme '$THEME_NAME' not found... skipping..."
+  else
+    # Change the name of the color scheme file to import in theme.rasi
+    sed -i "s|\(@import \"themes/colorschemes/\)[^\"]*\(.rasi\"\)|\1$THEME_NAME\2|" "$ROFI_THEME_FILE"
+
+    echo -e "\e[32m✅ \e[0mRofi theme '$THEME_NAME' applied."
   fi
-
-  # Change the name of the color scheme file to import in theme.rasi
-  sed -i "s|\(@import \"themes/colorschemes/\)[^\"]*\(.rasi\"\)|\1$THEME_NAME\2|" "$ROFI_THEME_FILE"
-
-  echo -e "\e[32m✅ \e[0mRofi theme '$THEME_NAME' applied."
-
 fi
