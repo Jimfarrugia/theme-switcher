@@ -20,6 +20,8 @@ if pacman -Q waybar &>/dev/null; then
   THEME_DIR="$WAYBAR_THEMES_DIR/$THEME_NAME"
   THEME_SH_FILE="$WAYBAR_THEMES_DIR/$THEME_NAME/colors.sh"
 
+  VALIDATION_SCRIPT="${HOME}/Projects/theme-switcher/validate_template_theme.sh"
+
   # Make sure theme name was provided
   if [[ -z $THEME_NAME ]]; then
     echo -e "\e[31m \e[0m Waybar theme name argument wasn't provided."
@@ -38,7 +40,7 @@ if pacman -Q waybar &>/dev/null; then
 
     # Validate waybar theme
     echo -e "\nValidating Waybar theme..."
-    bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_SH_FILE"
+    bash "$VALIDATION_SCRIPT" "$CONFIG_TEMPLATE_FILE" "$THEME_SH_FILE"
 
     # Source and export all theme variables
     source "$THEME_SH_FILE"

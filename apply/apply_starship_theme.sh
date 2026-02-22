@@ -8,13 +8,15 @@
 
 if pacman -Q starship &>/dev/null; then
 
-  STARSHIP_CONFIG_DIR="$HOME/.config/starship"
+  STARSHIP_CONFIG_DIR="${HOME}/.config/starship"
 
   THEME_NAME="$1"
   THEME_FILE="$STARSHIP_CONFIG_DIR/themes/$THEME_NAME.sh"
 
   CONFIG_TEMPLATE_FILE="$STARSHIP_CONFIG_DIR/starship.template.toml"
   FINAL_CONFIG_FILE="$STARSHIP_CONFIG_DIR/starship.toml"
+
+  VALIDATION_SCRIPT="${HOME}/Projects/theme-switcher/validate_template_theme.sh"
 
   # Make sure theme name was provided
   if [[ -z $THEME_NAME ]]; then
@@ -27,7 +29,7 @@ if pacman -Q starship &>/dev/null; then
   else
     # Validate starship theme
     echo -e "\nValidating Starship theme..."
-    bash "$SCRIPT_DIR/validate_template_theme.sh" "$CONFIG_TEMPLATE_FILE" "$THEME_FILE"
+    bash "$VALIDATION_SCRIPT" "$CONFIG_TEMPLATE_FILE" "$THEME_FILE"
 
     # Source and export all theme variables
     source "$THEME_FILE"
